@@ -8,6 +8,14 @@
 
 MIT license
 written by Adafruit Industries
+
+Modified by Glenn Ramsey 15/7/2012
+Added the ability to disable interrupts. This causes reads to fail more frequently
+than with interrupts, but is required to prevent interference with other code that
+needs interrupts, for example AC phase control.
+Fixed a bug that caused the incorrect data to be returned for the rest of the 
+poll period after a read failed. If a read failed then that call would correctly
+return NAN but subsequent calls would return whatever was in the buffer.
 */
 
 // how many timing transitions we need to keep track of. 2 * number bits + extra
@@ -25,9 +33,11 @@ class DHT {
   boolean read(void);
   unsigned long _lastreadtime;
   boolean firstreading;
+  boolean _readfailed;
+  boolean _disableinterrupts;
 
  public:
-  DHT(uint8_t pin, uint8_t type);
+  DHT(uint8_t pin, uint8_t type, bool disableinterrupts=true);
   void begin(void);
   float readTemperature(bool S=false);
   float convertCtoF(float);
