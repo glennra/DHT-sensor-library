@@ -1,3 +1,5 @@
+#ifndef DHT_H
+#define DHT_H
 #if ARDUINO >= 100
  #include "Arduino.h"
 #else
@@ -44,3 +46,4 @@ class DHT {
   float readHumidity(void);
 
 };
+#endif
