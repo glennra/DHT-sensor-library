@@ -58,6 +58,7 @@ float DHT::convertCtoF(float c) {
 
 float DHT::readHumidity(void) {
   float f;
+
   if (read()) {
     switch (_type) {
     case DHT11:
