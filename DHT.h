@@ -8,6 +8,8 @@
 
 MIT license
 written by Adafruit Industries
+
+Modified by Glenn Ramsey 15/7/2012
 */
 
 // how many timing transitions we need to keep track of. 2 * number bits + extra
@@ -25,9 +27,11 @@ class DHT {
   boolean read(void);
   unsigned long _lastreadtime;
   boolean firstreading;
+  boolean _readfailed;
+  boolean _disableinterrupts;
 
  public:
-  DHT(uint8_t pin, uint8_t type);
+  DHT(uint8_t pin, uint8_t type, bool disableinterrupts=true);
   void begin(void);
   float readTemperature(bool S=false);
   float convertCtoF(float);
